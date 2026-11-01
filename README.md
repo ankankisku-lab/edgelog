@@ -72,3 +72,7 @@ Set `NEXT_PUBLIC_API_URL` if the backend isn't on `http://localhost:8000`.
 ```bash
 cd backend && .venv/Scripts/python -m pytest -q
 ```
+
+## License
+
+All rights reserved. This code is shared for viewing only; it may not be used, copied or modified without permission. See [LICENSE](LICENSE).
