@@ -7,6 +7,26 @@ flags what it is unsure about, and builds performance, strategy and behaviour an
 - `backend/` — FastAPI + SQLAlchemy (SQLite by default, PostgreSQL supported), extraction pipeline, Drive sync, AI assistant
 - `frontend/` — Next.js + Tailwind + Recharts dashboard
 
+## Screenshots
+
+Taken from a real journal of MNQ and gold (MGC) futures trades, October 2026.
+
+**Dashboard**: account balance, equity and drawdown, win rate, daily P&L, R distribution, results by asset and timeframe.
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+**Journal**: every trade with day, session, R and P&L; each column can be sorted and filtered.
+
+![Journal](docs/screenshots/journal.png)
+
+**Trade detail**: the trade's M1 entry and M5 setup charts, and every field with where it came from (folder name, OCR, AI vision) and how sure the extraction was.
+
+![Trade detail](docs/screenshots/trade.png)
+
+**Strategy & behaviour**: compare results by asset, session, setup or timeframe, and track behavioural patterns.
+
+![Strategy and behaviour](docs/screenshots/strategy.png)
+
 ## Run it
 
 **Backend** (Python 3.12):
