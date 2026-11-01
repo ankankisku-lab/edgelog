@@ -82,9 +82,20 @@ export default function StrategyPage() {
   const [dim, setDim] = useState("strategy_name");
   const [metric, setMetric] = useState<Metric>("avg_r");
 
+  const [dimPicked, setDimPicked] = useState(false);
+
   useEffect(() => {
     api.analytics(toParams(filters)).then((d) => (setData(d), setError(null)), setError);
   }, [filters]);
+
+  // open on a grouping that has something to compare (e.g. Session when no strategies are recorded yet)
+  useEffect(() => {
+    if (!data || dimPicked) return;
+    const known = (k: string) => (data.breakdowns[k] ?? []).filter((r) => r.key !== "Unspecified").length;
+    if (known(dim) >= 2) return;
+    const better = Object.keys(data.dimension_labels).find((k) => known(k) >= 2);
+    if (better) setDim(better);
+  }, [data, dim, dimPicked]);
 
   const rows = data?.breakdowns[dim] ?? [];
   const b = data?.behavior;
@@ -121,7 +132,10 @@ export default function StrategyPage() {
                 <Select
                   aria-label="Group by"
                   value={dim}
-                  onChange={setDim}
+                  onChange={(v) => {
+                    setDim(v);
+                    setDimPicked(true);
+                  }}
                   options={Object.entries(data.dimension_labels).map(([value, label]) => ({ value, label }))}
                 />
                 <Toggle value={metric} onChange={setMetric} options={METRICS} />

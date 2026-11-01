@@ -174,8 +174,9 @@ def _tp_note(items: list[OcrItem], img_w: int) -> tuple[float, str, str] | None:
             continue
         raw = m.group("r").replace(",", ".").replace("−", "-")
         before = text[: m.start("r")]
-        # the bar glued on as a "1": "…fvg11.6R" is "…fvg | 1.6R" (R values of 10+ are rare)
-        if re.search(r"[A-Za-z]$", before) and re.fullmatch(r"1\d(?:\.\d+)?", raw):
+        # the bar glued on as a "1": "…fvg11.6R" is "…fvg | 1.6R" (R values of 10+ are rare). Not when the
+        # bar was already read as I or l: "…fvgI15.7R" really is 15.7R
+        if re.search(r"[A-HJ-Za-km-z]$", before) and re.fullmatch(r"1\d(?:\.\d+)?", raw):
             raw = raw[1:]
         r = parse_number(raw)
         if r is not None:

@@ -183,6 +183,8 @@ def test_rightmost_note_is_this_trades_r():
 def test_glued_bar_and_wrapped_note():
     c = by_field(extract_from_ocr([_item("TPuptountappedm5fvg11.6R", 600, 300)], "x.png", 1600)[0])
     assert c["r_multiple"].value == 1.6  # "fvg | 1.6R" with the bar read as "1"
+    c = by_field(extract_from_ocr([_item("TPuptountappedm5fvgI15.7R", 600, 300)], "x.png", 1600)[0])
+    assert c["r_multiple"].value == 15.7  # the bar was read as "I": the 1 belongs to the number
     wrapped = [_item("TP upto untapped H1 fvg since chart can't go to m5 in free mode", 700, 300),
                _item("butfP session ended sobooking at1pm ETI 1.7R", 705, 322)]
     c = by_field(extract_from_ocr(wrapped, "x.png", 1600)[0])
